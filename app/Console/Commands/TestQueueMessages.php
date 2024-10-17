@@ -38,7 +38,7 @@ class TestQueueMessages extends Command
 
 
             for ($j = 1; $j <= 10; $j++) {
-                $accountId = rand(1, 10);
+                $accountId = rand(1, 1000);
                 $payload = json_encode([
                     'account_id' => $accountId,
                     'event_id' => $j,
