@@ -67,7 +67,7 @@ class DeclareCommand extends Command
             $channel->queue_bind(
                 queue: "$exchange.$i",
                 exchange: $exchange,
-                routing_key: $i
+                routing_key: 1
             );
         }
     }
