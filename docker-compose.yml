@@ -1,0 +1,30 @@
+services:
+    app:
+        build: ./docker/php
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www/
+            - ~/.ssh/id_rsa:/home/app/.ssh/id_rsa
+            - ~/.ssh/id_rsa.pub:/home/app/.ssh/id_rsa.pub
+            - ~/.ssh/known_hosts:/home/app/.ssh/known_hosts
+        environment:
+            PHP_IDE_CONFIG: "serverName=Docker"
+
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx:/etc/nginx/conf.d/
+        ports:
+            - "8097:8097"
+        networks:
+            - default
+
+
+    rabbitmq:
+        build: ./docker/rabbit
+        restart: unless-stopped
+        ports:
+            - 15672:15672

@@ -15,6 +15,9 @@ return [
 
     'default' => env('QUEUE_CONNECTION', 'database'),
 
+    'queue_count' => env('QUEUE_COUNT', 2),
+    'exchange_name' => env('EXCHANGE_NAME', 'user-events'),
+
     /*
     |--------------------------------------------------------------------------
     | Queue Connections
