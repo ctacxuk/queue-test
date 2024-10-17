@@ -33,15 +33,7 @@ class DeclareCommand extends Command
 
         $channel = $connection->channel();
 
-        //допустим есть какой-то exchange созданный в стороннем сервисе, который собирает события
-        $channel->exchange_declare(
-            exchange: 'events',
-            type: 'direct',
-            durable: true,
-        );
-
-
-        // создаем свой с типом x-consistent-hash, чтобы все события пользователя всегда были в одной очереди и биндим к стороннему
+        // допустим в стороннем сервисе есть exchange с типом x-consistent-hash, чтобы все события пользователя всегда были в одной очереди
         $exchange = config('queue.exchange_name');
 
         $channel->exchange_declare(
@@ -50,8 +42,6 @@ class DeclareCommand extends Command
             durable: true,
             arguments: new AMQPTable(['hash-header' => 'x-account-id'])
         );
-
-        $channel->exchange_bind($exchange, 'events');
 
         $queueCount = config('queue.queue_count');
 

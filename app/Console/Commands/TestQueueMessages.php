@@ -34,6 +34,8 @@ class TestQueueMessages extends Command
 
         $channel = $connection->channel();
 
+        $exchange = config('queue.exchange_name');
+
         for ($i = 0; $i < 1000; $i++) {
 
 
@@ -51,7 +53,7 @@ class TestQueueMessages extends Command
 
 
 
-                $channel->basic_publish(msg: $message, exchange: 'events');
+                $channel->basic_publish(msg: $message, exchange: $exchange);
             }
 
 
